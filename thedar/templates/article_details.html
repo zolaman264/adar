@@ -1,0 +1,38 @@
+
+{%extends 'base.html' %}
+{%block content%}
+{%block title%}
+{% if user.is_authenticated%}
+
+{%endif%}
+ {%endblock%}
+
+<h3>{{object.author.first_name}} {{object.author.last_name}} {% if user.id == post.author.id%}
+    <a id="printPageButton" href="{% url 'update_post' post.pk %}">(edit)</a>
+   <a id="printPageButton" href="{% url 'delete_post' post.pk %}">(delete)</a>
+   {%endif%}</h3> 
+ 
+<small>Date: {{object.time}} Check in: {{object.checkin}} Check out:{{object.checkin}} </small><hr>
+Detail Description:- {{object.details|safe}}<br>
+
+
+Report Spills: {{object.report|safe}}<br><br>
+{%if object.report_image%}
+
+
+<img src="{{object.report_image.url}} " width="250 " height="250" > <br><br>
+ 
+{%endif%}
+<a id="printPageButton" href="{%url 'home'%}" class="btn btn-secondary">Back</a>
+<button  id="printPageButton"  onclick="window.print()" class="btn btn-success" >Print <i class="fa fa-print"></i> </button>
+ 
+<i class="bi bi-printer"></i>
+<style>
+    @media print {
+    #printPageButton {
+      display: none;
+    }
+  }
+ </style>
+{%endblock%}
+

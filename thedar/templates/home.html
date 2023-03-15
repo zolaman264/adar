@@ -1,0 +1,42 @@
+
+{%extends 'base.html' %}
+{%block content%}
+<style>
+  ul.no-bullets {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+<h1>Daily Activity Reports</h1>
+<br>
+<ul  class="no-bullets">
+{% for Post in object_list %}
+<div class="container">
+    <li>
+      {%if Post.author.profile.profile_pic %}
+      <img src="{{Post.author.profile.profile_pic.url}}" class="rounded-circle float-left"  width="50" height="50">
+      
+      {%endif%}
+      
+      <a href="{% url 'article-detail' Post.pk %} "> <strong>{{Post.author.first_name}}  {{Post.author.last_name}} </strong></a>
+           
+            
+            {% if user.is_authenticated%}
+            {% if user.id == Post.author.id%}
+             <a href="{% url 'update_post' Post.pk %}">(edit)</a>
+             
+            <a href="{% url 'delete_post' Post.pk %}">(delete)</a>
+            {%endif%}
+            {%endif%}
+            <br/>
+            {{Post.time}}<br/>
+          <small>check in:{{Post.checkin}}
+            check out:{{Post.checkout}}</small> <br>
+            {{Post.details|slice:":100" |safe }}
+            <strong>{{Post.report|slice:":50" |safe}}</strong>
+        </li></div>
+{%endfor%}
+</ul>
+
+{%endblock%}

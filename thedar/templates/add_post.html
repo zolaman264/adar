@@ -1,0 +1,22 @@
+
+{%extends 'base.html' %}
+{% get_current_timezone as TIME_ZONE %
+{%block title%}Add new DAR {%endblock%}
+{%block content%}
+<h1>Add DARs</h1><br>
+<div class="form-group">
+<form method="POST" enctype="multipart/form-data">
+    {%csrf_token%}
+    {{form.media}}
+    {{form.as_p}}
+    <button class="btn btn-success">Post DAR</button>  
+    <a href="{%url 'home'%}" class="btn btn-secondary">Back</a>
+</form>
+</div>
+<script>
+    var name ="{{user.id}}";
+    document.getElementById("zola").value 
+    = name
+</script> 
+{%endblock%}
+ 

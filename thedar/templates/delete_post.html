@@ -1,0 +1,26 @@
+{%extends 'base.html' %}
+{%block title%}Delete DAR{%endblock%}
+{% block content %}
+   
+
+<h1>Delete DAR</h1><br/><br/>
+ 
+{% if user.is_authenticated%}
+{% if user.id == post.author.id%}
+<h5>Delete: {{object.details|safe}}</h5>
+<div class="form-group">
+<form method="POST">
+    {%csrf_token%}
+    <strong>Are you sure you wana delete this?</strong><br/><br/>
+    <button class="btn btn-danger">Delete Post</button>
+    <a href="{%url 'home'%}" class="btn btn-secondary">Back</a>
+
+</form>
+</div>
+{%else%}
+You are not allowed here!
+{%endif%}
+ {%else%}
+ You are not allowed here!
+ {%endif%}
+{%endblock%}
